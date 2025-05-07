@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Tugas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+        }
+        .todo-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-group button {
+            padding: 10px;
+            border: none;
+            background: #ff5e62;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .input-group button:hover {
+            background: #e04b50;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #f3f3f3;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li.completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <h2>List Tugas</h2>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Tambahkan tugas...">
+            <button onclick="addTask()">Tambah</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskList = document.getElementById("taskList");
+            let taskText = taskInput.value.trim();
+            
+            if (taskText === "") {
+                alert("Masukkan tugas terlebih dahulu!");
+                return;
+            }
+            
+            let li = document.createElement("li");
+            li.innerHTML = `${taskText} <button class="delete-btn" onclick="removeTask(this)">Hapus</button>`;
+            li.onclick = function () {
+                this.classList.toggle("completed");
+            };
+            
+            taskList.appendChild(li);
+            taskInput.value = "";
+        }
+        
+        function removeTask(button) {
+            let li = button.parentElement;
+            li.remove();
+        }
+    </script>
+</body>
+</html>
